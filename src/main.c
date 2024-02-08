@@ -6,13 +6,16 @@
 /*   By: dgomez-b <dgomez-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:25:02 by minimarmeto       #+#    #+#             */
-/*   Updated: 2024/02/08 19:31:17 by dgomez-b         ###   ########.fr       */
+/*   Updated: 2024/02/08 19:47:10 by dgomez-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft/libft.h>
 #include <pipex.h>
 #include <unistd.h>
+#include <sys/wait.h>
+
+#include <stdlib.h>
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -33,6 +36,11 @@ int	main(int argc, char **argv, char **envp)
 		error();
 	if (pid == 0)
 		first_process(argv[1], argv[2], fd, envp);
-	last_process(argv[4], argv[3], fd, envp);
+	waitpid(pid, (void *)0, 0);
+	pid = fork();
+	if (pid < 0)
+		error();
+	if (pid == 0)
+		last_process(argv[4], argv[3], fd, envp);
 	return (0);
 }
