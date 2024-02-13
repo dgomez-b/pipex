@@ -6,7 +6,7 @@
 /*   By: dgomez-b <dgomez-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:25:02 by minimarmeto       #+#    #+#             */
-/*   Updated: 2024/02/13 15:30:28 by dgomez-b         ###   ########.fr       */
+/*   Updated: 2024/02/13 16:39:48 by dgomez-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ int	main(int argc, char **argv, char **envp)
 	int			fd[2];
 
 	if (argc != 5)
-	{
-		ft_putendl_fd("\e[31mError : Bad amount of arguments\e[0m", 0);
-		return (0);
-	}
+		error2("\e[31mError : Bad amount of arguments\e[0m", 0);
 	if (access(argv[1], F_OK | R_OK) != 0)
 		error();
 	if (pipe(fd) < 0)
