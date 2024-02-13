@@ -6,7 +6,7 @@
 /*   By: dgomez-b <dgomez-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 19:22:04 by dgomez-b          #+#    #+#             */
-/*   Updated: 2024/02/08 19:32:28 by dgomez-b         ###   ########.fr       */
+/*   Updated: 2024/02/13 16:21:28 by dgomez-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ char	*get_path(char *comname, char **envp)
 
 	if (!comname)
 		return (0);
-	comname = ft_strjoin("./", comname);
-	if (access(comname, F_OK | R_OK) == 0)
-		return (comname);
+	if (access(comname, F_OK | X_OK) == 0)
+		return (ft_strdup(comname));
+	comname = ft_strjoin("/", comname);
 	paths = environment_paths(envp);
 	if (!paths)
 		return ((void *)0);
@@ -51,8 +51,8 @@ char	*get_path(char *comname, char **envp)
 	path = (void *)0;
 	while (paths[i])
 	{
-		path = ft_strjoin(paths[i++], comname + 1);
-		if (access(path, F_OK | R_OK) == 0)
+		path = ft_strjoin(paths[i++], comname);
+		if (access(path, F_OK | X_OK) == 0)
 			break ;
 		free(path);
 		path = (void *)0;

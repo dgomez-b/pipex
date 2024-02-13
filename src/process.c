@@ -6,7 +6,7 @@
 /*   By: dgomez-b <dgomez-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 19:23:42 by dgomez-b          #+#    #+#             */
-/*   Updated: 2024/02/08 19:28:34 by dgomez-b         ###   ########.fr       */
+/*   Updated: 2024/02/13 15:30:38 by dgomez-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	last_process(char *filename, char *comline, int *fd, char **envp)
 	char	**cmd;
 	char	*path;
 
-	file = open(filename, O_WRONLY | O_CREAT | O_TRUNC);
+	file = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (file == -1)
 		error();
 	dup2(fd[0], 0);

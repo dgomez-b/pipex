@@ -6,7 +6,7 @@
 /*   By: dgomez-b <dgomez-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:25:02 by minimarmeto       #+#    #+#             */
-/*   Updated: 2024/02/08 19:47:10 by dgomez-b         ###   ########.fr       */
+/*   Updated: 2024/02/13 15:30:28 by dgomez-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	pid_t	pid;
-	int		fd[2];
+	t_multipid	pids;
+	int			fd[2];
 
 	if (argc != 5)
 	{
@@ -31,16 +31,18 @@ int	main(int argc, char **argv, char **envp)
 		error();
 	if (pipe(fd) < 0)
 		error();
-	pid = fork();
-	if (pid < 0)
+	pids.pid1 = fork();
+	if (pids.pid1 < 0)
 		error();
-	if (pid == 0)
+	if (pids.pid1 == 0)
 		first_process(argv[1], argv[2], fd, envp);
-	waitpid(pid, (void *)0, 0);
-	pid = fork();
-	if (pid < 0)
+	pids.pid2 = fork();
+	if (pids.pid2 < 0)
 		error();
-	if (pid == 0)
+	if (pids.pid2 == 0)
 		last_process(argv[4], argv[3], fd, envp);
+	close(fd[1]);
+	waitpid(pids.pid1, (void *)0, 0);
+	waitpid(pids.pid2, (void *)0, 0);
 	return (0);
 }
