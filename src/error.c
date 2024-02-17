@@ -28,6 +28,8 @@ void	error(void)
 /// @param err Exit value
 void	error2(char *ser, int err)
 {
-	ft_putendl_fd("\e[31mError : Bad amount of arguments\e[0m", 0);
+	ft_putstr_fd("\e[31mError:", 0);
+	ft_putstr_fd(ser, 0);
+	ft_putendl_fd("\e[0m", 0);
 	exit (err);
 }

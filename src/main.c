@@ -23,7 +23,7 @@ int	main(int argc, char **argv, char **envp)
 	int			fd[2];
 
 	if (argc != 5)
-		error2("\e[31mError : Bad amount of arguments\e[0m", 0);
+		error2("Bad amount of arguments", 0);
 	if (access(argv[1], F_OK | R_OK) != 0)
 		error();
 	if (pipe(fd) < 0)
